@@ -1,0 +1,36 @@
+services:
+ - name: docker:dind
+   command: ["--tls=false"]
+variables:
+ DOCKER_HOST: "tcp://docker:2375"
+ DOCKER_TLS_CERTDIR: ""
+ DOCKER_DRIVER: overlay2
+ MAVEN_OPTS: >-
+   -Dhttps.protocols=TLSv1.2
+   -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+   -Dorg.slf4j.simpleLogger.showDateTime=true
+   -Djava.awt.headless=true
+ MAVEN_CLI_OPTS: >-
+   --batch-mode
+   --errors
+   --fail-at-end
+   --show-version
+   --no-transfer-progress
+image: maven:3-eclipse-temurin-19
+cache:
+ paths:
+   - .m2/repository
+
+stages:
+  - test
+
+test:
+  stage: test
+  when: manual
+  script:
+    - mvn test -Dtest=CustomerControllerTest
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - ./target/karate-reports
