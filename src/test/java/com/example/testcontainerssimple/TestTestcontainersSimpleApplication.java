@@ -10,10 +10,12 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestTestcontainersSimpleApplication {
 
+	public static final String POSTGRES_14_9_ALPINE = "postgres:14.9-alpine";
+
 	@Bean
 	@ServiceConnection
 	PostgreSQLContainer<?> postgresContainer() {
-		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));
+		return new PostgreSQLContainer<>(DockerImageName.parse(POSTGRES_14_9_ALPINE));
 	}
 
 	public static void main(String[] args) {

@@ -2,7 +2,7 @@ function fn() {
   karate.configure('connectTimeout', 5000);
   karate.configure('readTimeout', 5000);
   
-  var port = karate.properties['server.port'] || '8080';
+  var port = karate.properties['server.port'] || '8079';
   var protocol = 'http';
   if (karate.properties['server.protocol'] === 'true') {
     protocol = 'https';
