@@ -10,8 +10,13 @@ Feature: Schema creator service
   @createSchema
   Scenario: create Avro Schema
 
-    #Clean
-    Given path 'api/clusters/testCluster/schemas/users'
+
+    * def topic = 'users'
+      # See topic name strategy https://docs.confluent.io/platform/current/schema-registry/fundamentals/serdes-develop/index.html#overview
+    * def subject = topic+'-value'
+
+      #Clean
+    Given path 'api/clusters/testCluster/schemas/' + subject
     And method DELETE
 
       # Fomat json to string , TODO set as param
@@ -20,8 +25,8 @@ Feature: Schema creator service
     * def schemaCreationRequest =
     """
       {
-        "subject": "users",
-        "schema": "##(avro_schema)",
+        "subject": "#(subject)",
+        "schema": "#(avro_schema)",
         "schemaType": "AVRO"
       }
     """

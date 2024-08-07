@@ -6,10 +6,8 @@
     {
       "name": "id",
       "type": [
-        "null",
         "int"
-      ],
-      "default": null
+      ]
     },
     {
       "name": "email",
