@@ -12,7 +12,7 @@ Feature: Publish
     * def key =
     """
     {
-        "id": 3
+        "id": 1
     }
     """
     * string stringKey = key
@@ -21,7 +21,7 @@ Feature: Publish
     """
     {
       "id": {
-        "int": 3
+        "int": 1
       },
       "name": {"string": "John Doe"},
       "email": {"string":"jone@dot.com"}

@@ -16,8 +16,13 @@ public class UserConsumer {
 
         @KafkaListener(topics = "users", groupId = "group_id")
         public void onMessage(ConsumerRecord<String, UserAvro> consumerRecord) {
-
-            userRepository.save(new Customer(Long.valueOf((Integer)consumerRecord.value().getId()), consumerRecord.value().getName(), consumerRecord.value().getEmail()));
+            userRepository.findById(Long.valueOf((Integer)consumerRecord.value().getId())).ifPresentOrElse(
+                    user -> {
+                        user.setName(consumerRecord.value().getName());
+                        user.setEmail(consumerRecord.value().getEmail());
+                        userRepository.save(user);
+                    },
+                    () ->userRepository.save(new Customer(Long.valueOf((Integer)consumerRecord.value().getId()), consumerRecord.value().getName(), consumerRecord.value().getEmail())));
 
         }
 

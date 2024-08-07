@@ -9,7 +9,12 @@ Background:
 
 Scenario: should get all customers
 
+  # Await everything has booted
+  Given sleep(10000)
+
+
   Given call read('classpath:reusable/topic/publish.feature')
+  # Await message consumed
   And sleep(3000)
 
   When url baseUrl

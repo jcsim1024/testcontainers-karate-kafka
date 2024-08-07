@@ -4,6 +4,7 @@
 # 127.0.0.1       kafka
 # 127.0.0.1       schema-registry
 # 127.0.0.1       kafbat-ui
+# 127.0.0.1       postgres
 services:
   kafka:
     image: confluentinc/cp-server:7.5.0
@@ -76,3 +77,11 @@ services:
         POSTGRES_PASSWORD: 'postgres'
         # data base
         POSTGRES_DB: 'employee'
+
+  customer-app:
+      build:
+        context: ../
+        dockerfile: Dockerfile
+      container_name: customer-app
+      ports:
+        - "8079:8079"
