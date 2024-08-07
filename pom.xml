@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
     <testcontainers.version>1.19.3</testcontainers.version>
     <karate.version>1.4.1</karate.version>
+		<avro.compiler.version>1.11.3</avro.compiler.version>
 	</properties>
 	<dependencies>
     <dependency>
@@ -70,6 +71,11 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro</artifactId>
+			<version>${avro.compiler.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -78,7 +84,32 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro-maven-plugin</artifactId>
+				<version>${avro.compiler.version}</version>
+				<configuration>
+					<stringType>String</stringType>
+				</configuration>
+				<executions>
+					<execution>
+						<id>schemas</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>schema</goal>
+							<goal>protocol</goal>
+							<goal>idl-protocol</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+<!--							<outputDirectory>${project.basedir}/src/main/java/</outputDirectory>-->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>

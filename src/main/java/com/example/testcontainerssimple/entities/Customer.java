@@ -7,6 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * JSON exemple
+ * {
+ *  "id": 1,
+ *  "name": "John Doe",
+ *  "email": "mail.a@Dot.com"
+ *  }
+ */
 @Entity
 @Table(name = "customers")
 public class Customer {

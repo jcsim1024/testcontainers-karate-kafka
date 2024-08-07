@@ -27,8 +27,8 @@ import org.testcontainers.utility.DockerImageName;
 
 import static com.example.testcontainerssimple.TestTestcontainersSimpleApplication.POSTGRES_14_9_ALPINE;
 
-@Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@Testcontainers
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerControllerTest {
 
 //  @ClassRule

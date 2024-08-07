@@ -1,9 +1,13 @@
 Feature: customer features
 
 Background:
-  * url baseUrl
+  * call read('classpath:reusable/topic/schema_creator.feature')
+
+
+
 
 Scenario: should get all customers
+  * url baseUrl
   * path '/api/customers'
   * method get
   * status 200

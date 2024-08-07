@@ -8,7 +8,11 @@ function fn() {
     protocol = 'https';
     karate.configure('ssl', true);
   }  
-  var config = { baseUrl: protocol + '://localhost:' + port };
-  
+  var config = {
+    baseUrl: protocol + '://localhost:' + port ,
+    kafbatUiUrl: karate.properties['kafbat-ui.url'] || 'http://kafbat-ui:8080'
+  };
+  karate.log('karate.env system propertiy was:', karate.env)
+
   return config;
 }
