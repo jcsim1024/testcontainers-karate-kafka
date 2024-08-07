@@ -23,7 +23,7 @@ Feature: Publish
       "id": {
         "int": 3
       },
-      "name": {"string": "Johne"},
+      "name": {"string": "John Doe"},
       "email": {"string":"jone@dot.com"}
     }
     """
