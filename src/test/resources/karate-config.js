@@ -1,6 +1,6 @@
 function fn() {
-  karate.configure('connectTimeout', 5000);
-  karate.configure('readTimeout', 5000);
+  karate.configure('connectTimeout', 10000);
+  karate.configure('readTimeout', 10000);
   
   var port = karate.properties['server.port'] || '8079';
   var protocol = 'http';
