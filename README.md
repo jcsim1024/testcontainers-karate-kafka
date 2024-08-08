@@ -4,6 +4,56 @@
 
 * Contact me on [linkedin](https://www.linkedin.com/in/jean-charles-simonnet-1024/) for more information.
 
+## Schema
+
+```mermaid
+flowchart TB
+  subgraph LinuxHost [Linux Host]
+    subgraph DockerHost [Docker Host]
+      subgraph DockerCompose [Docker Compose and Network]
+        subgraph CustomerApp [Spring Boot Customer App]
+          direction TB
+          subgraph SpringWeb [Spring Web]
+          end
+          subgraph SpringDataJPA [Spring Data JPA]
+          end
+          subgraph AvroSerialization [Confluent Avro Serialization]
+          end
+        end
+        
+        subgraph Postgres [Postgres Database]
+        end
+        CustomerApp -->|jdbc| Postgres
+
+        subgraph SchemaRegistry [Confluent Schema Registry]
+        end
+        subgraph Kafka [Kafka Cluster]
+          
+          KafkaTopic1["Kafka Topic"]
+        end
+        subgraph KafbatUI [Kafbat UI API]
+        end
+        
+      end
+
+
+      Testcontainers[TestContainer Compose] -->|Manages| DockerCompose
+    end
+    Junit5Runner -->|Runs| KarateRunner
+    Junit5Runner -->|Runs| Testcontainers
+    KarateRunner -->|Interacts with| CustomerApp
+    KarateRunner -->|Interacts with| KafbatUI
+
+  end
+
+  Kafka -->|Consumes events| CustomerApp
+  SchemaRegistry -->|Store schema| Kafka
+  SchemaRegistry -->|Shares schemas| CustomerApp
+  KafbatUI -->|Creates topics and Produce messages| Kafka
+  KafbatUI -->|Creates Schemas| SchemaRegistry
+
+
+```
 
 ## Reference
 For further reference, please consider the following sections:
