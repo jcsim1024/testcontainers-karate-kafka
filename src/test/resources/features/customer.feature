@@ -1,17 +1,18 @@
 Feature: customer features
 
 Background:
+
+  * def sleep = function(millis){ java.lang.Thread.sleep(millis) }
+  # Docker compose is not aware of readiness we need to await everything has booted.
+  * sleep(20000)
+
   * call read('classpath:reusable/topic/schema_creator.feature')
   * call read('classpath:reusable/topic/topic_creator.feature')
-  * def sleep = function(millis){ java.lang.Thread.sleep(millis) }
-
 
 
 Scenario: should get all customers
 
   # Await everything has booted
-  Given sleep(10000)
-
 
   Given call read('classpath:reusable/topic/publish.feature')
   # Await message consumed

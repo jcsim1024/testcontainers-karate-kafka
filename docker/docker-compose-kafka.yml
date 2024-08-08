@@ -54,6 +54,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   kafbat-ui:
+    hostname: kafbat-ui
     container_name: kafbat-ui
     image: ghcr.io/kafbat/kafka-ui:latest
     ports:
@@ -68,6 +69,7 @@ services:
 
   postgres:
     image: postgres:14.9-alpine
+    hostname: postgres
     container_name: postgres
     ports:
       - "5432:5432"
@@ -79,9 +81,17 @@ services:
 
   customer-app:
       #Info:  Building with testContainer life cycle fails when mounting virtual vulumes ( I use WSL )
-      build:
-        context: ../
-        dockerfile: Dockerfile
+#       build:
+#         context: ../
+#         dockerfile: Dockerfile
+
+      # docker build -t customer-app .
+      depends_on:
+        - kafka
+        - schema-registry
+        - postgres
+      image: customer-app
+      hostname: customer-app
       container_name: customer-app
       ports:
         - "8079:8079"

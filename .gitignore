@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+remove_mail_address.sh

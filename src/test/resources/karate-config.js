@@ -13,6 +13,8 @@ function fn() {
     kafbatUiUrl: karate.properties['kafbat-ui.url'] || 'http://kafbat-ui:8080'
   };
   karate.log('karate.env system propertiy was:', karate.env)
+  karate.log('karate.config was:', config)
+
 
   return config;
 }

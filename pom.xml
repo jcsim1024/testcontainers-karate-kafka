@@ -18,6 +18,8 @@
     <testcontainers.version>1.19.3</testcontainers.version>
     <karate.version>1.4.1</karate.version>
 		<avro.compiler.version>1.11.3</avro.compiler.version>
+		<maven.surefire.version>3.2.5</maven.surefire.version>
+
 	</properties>
 	<dependencies>
     <dependency>
@@ -128,9 +130,32 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+				<configuration>
+					<argLine>
+						-Dfile.encoding=UTF-8 -Dkafbat-ui.url=${kafbat-ui.url}
+					</argLine>
+				</configuration>
+			</plugin>
 
 		</plugins>
 
 	</build>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activatedProperties>local</activatedProperties>
+				<kafbat-ui.url>http://localhost:8080</kafbat-ui.url>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
