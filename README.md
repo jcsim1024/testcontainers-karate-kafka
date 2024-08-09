@@ -63,6 +63,27 @@ flowchart TD
 
 ```
 
+What happens during maven test
+
+1. Junits5 runner starts
+   1. Before All
+      2. Testcontainers starts a Compose "manager" which Boots the following services
+         1. Kafka 
+         2. Customer-App 
+         3. Kafbat UI 
+         4. Schema Registry 
+         5. Postgres 
+   2. Karate runner starts 
+      1. sleep 20 seconds to let all compose services finish booting
+      2. create a schema through Kafbat UI API
+      3. create a topic with enforced validation through Kafbat UI API
+      4. produce a message to the topic through Kafbat UI API
+      5. sleep 3 seconds to let the message be consumed by the customer-app
+      6. read the message customer-app API
+      7. assert the message content
+   3. After all 
+      1. Testcontainers instructs the compose manager to stop all services (compose down --remove-orphans)
+
 ## Reference
 For further reference, please consider the following sections:
 
