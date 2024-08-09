@@ -7,7 +7,7 @@
 ## Schema
 
 ```mermaid
-flowchart TB
+flowchart TD
   subgraph LinuxHost [Linux Host]
     subgraph DockerHost [Docker Host]
       subgraph DockerCompose [Docker Compose and Network]
@@ -35,9 +35,17 @@ flowchart TB
         end
         
       end
-
-
       Testcontainers[TestContainer Compose] -->|Manages| DockerCompose
+    end
+    subgraph JVM [Java Virtual Machine]
+      subgraph Junit5Runner [Junit5 Runner]
+      end
+      subgraph KarateRunner [Karate Runner]
+        subgraph CustomerApp [Customer App]
+        end
+        subgraph KafbatUI [Kafbat UI]
+        end
+      end
     end
     Junit5Runner -->|Runs| KarateRunner
     Junit5Runner -->|Runs| Testcontainers
